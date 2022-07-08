@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>subirarchivos</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" id="imagen_usuario" name="imagen_usuario"class="form-control img" accept="image/*" />
+         <button type="submit" class="btn btn-primary btn-block mb-3" >Enviar</button>
+    </form>
+         <?php
+            if (!is_dir("./imagenes") )
+            {
+                mkdir('./imagenes/', 0777);
+            }
+            if(is_dir("./imagenes"))
+            {
+                $target_dir = "./imagenes/";
+                $target_file = $target_dir . basename($_FILES["imagen_usuario"]["name"]);
+                if (move_uploaded_file($_FILES["imagen_usuario"]["tmp_name"], $target_file)) 
+                {
+                    echo "El archivo ". basename( $_FILES["imagen_usuario"]["name"]). " Se subio correctamente";
+                }
+            }
+        ?>
+</body>
+</html>
